@@ -1,0 +1,13 @@
+<?php
+
+namespace App\Controllers;
+
+use Csr\Framework\Http\HttpController;
+
+class {{name}} extends HttpController
+{
+    public function index(): string
+    {
+        return '<h1>Hello World</h1>';
+    }
+}

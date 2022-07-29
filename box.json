@@ -1,0 +1,5 @@
+{
+    "main": "src/index.php",
+    "output": "./csr.phar",
+    "compression": "GZ"
+}

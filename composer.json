@@ -1,0 +1,25 @@
+{
+    "name": "csr/cli",
+    "description": "CLI for CSR Framework",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Csr\\Cli\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "vitalii-pokrivchak",
+            "email": "pokrivchakzvitalja@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "config": {
+        "optimize-autoloader": true
+    },
+    "require": {
+        "symfony/console": "^5.4"
+    }
+}

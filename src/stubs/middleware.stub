@@ -1,0 +1,13 @@
+<?php
+
+namespace App\Middlewares;
+
+use Csr\Framework\Http\Middleware;
+
+class {{name}} extends Middleware 
+{
+    public function execute(): bool 
+    {
+        return false;
+    }
+}

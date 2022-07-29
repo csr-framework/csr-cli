@@ -1,0 +1,13 @@
+<?php
+
+namespace App\Controllers;
+
+use Csr\Framework\Http\JsonController;
+
+class {{name}} extends JsonController
+{
+    public function index(): array
+    {
+        return ['msg' => 'ok'];
+    }
+}

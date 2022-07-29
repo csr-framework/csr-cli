@@ -1,0 +1,57 @@
+name: release
+
+on:
+  push:
+    tags:
+      - "*"
+
+jobs:
+  build:
+    name: Upload Release Asset
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: "Install PHP"
+        uses: "shivammathur/setup-php@v2"
+        with:
+          coverage: "none"
+          extensions: "intl"
+          ini-values: "memory_limit=-1"
+          php-version: "7.4"
+
+      - name: "Install dependencies from composer.lock using composer binary provided by system"
+        run: "composer install"
+
+      - name: Install Box
+        run: |
+          wget \
+            "https://github.com/humbug/box/releases/download/3.8.4/box.phar" \
+            --quiet \
+            -O ./box
+          chmod +x ./box
+          sudo mv ./box /usr/local/bin
+
+      - name: Build PHAR
+        run: box compile
+
+      - name: Create release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: ${{ github.ref }}
+          draft: false
+
+      - name: Upload phar
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./csr.phar
+          asset_name: csr.phar
+          asset_content_type: application/octet-stream
